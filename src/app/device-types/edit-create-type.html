@@ -1,0 +1,90 @@
+<div mat-dialog-content class="edit-create-dialog">
+
+  <div class="dialog-header" fxLayout="row" fxLayoutAlign="center" class="title">
+    <h1 *ngIf="data.deviceType.id" mat-dialog-title>Edit Device Type</h1>
+    <h1 *ngIf="!data.deviceType.id" mat-dialog-title>Create New Device Type</h1>
+  </div>
+  <form #dialogForm="ngForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="column" fxLayoutGap="18px" fxLayoutAlign="start">
+      <div fxLayout="row" fxLayoutAlign="center">
+        <mat-form-field class="example-width">
+          <input required matInput placeholder="Device Type Name" name="deviceTypeName" [(ngModel)]="data.deviceType.name">
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-around start">
+        <div fxLayout="column" fxLayoutGap="10px">
+          <div fxLayout="row" fxLayoutGap="20px" *ngIf="data.deviceType.parentId === null">
+            <span>Categories</span>
+            <button class="mat-mini-fab custom-button" type="button" (click)="addNewSubCategory()" matTooltip="SubCategory Name">
+              <span class="mat-button-wrapper">
+                <mat-icon class="mat-icon material-icons mat-icon-no-color" role="img" aria-hidden="true">add</mat-icon>
+              </span>
+              <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple="">
+              </div>
+              <div class="mat-button-focus-overlay"></div>
+            </button>
+          </div>
+
+          <div *ngIf="showNewCategory" fxLayout="column" fxLayoutGap="10px">
+            <mat-form-field class="example-half-width">
+              <input matInput placeholder="Category Name" name="newSubCategory" [(ngModel)]="newCategory.name">
+            </mat-form-field>
+            <button [disabled]="!newCategory.name" type="button" (click)="saveCategory()" class="mat-raised-button mat-primary">Save
+            </button>
+          </div>
+
+          <div *ngFor="let category of data.deviceType.childrenDeviceType">
+            <mat-form-field class="example-half-width">
+              <input matInput name="{{category ? category.name : null}}" [(ngModel)]="category.name">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+
+        <div fxLayout="column" fxLayoutGap="10px" [ngClass]="{'properties-center': data.deviceType.parentId != null}">
+
+          <div fxLayout="row" fxLayoutGap="20px">
+            <span>Properties:</span>
+            <button type="button" (click)="addNewProperty()" matTooltip="Add Property" class="mat-mini-fab custom-button">
+              <span class="mat-button-wrapper">
+                <mat-icon class="mat-icon material-icons mat-icon-no-color" role="img" aria-hidden="true">add</mat-icon>
+              </span>
+              <div class="mat-button-ripple mat-ripple mat-button-ripple-round" matripple="">
+              </div>
+              <div class="mat-button-focus-overlay"></div>
+            </button>
+          </div>
+
+          <div *ngIf="showNewProperty" fxLayout="column" fxLayoutGap="10px">
+            <mat-form-field class="example-half-width">
+              <input matInput placeholder="Property Name" name="newProperty" [(ngModel)]="newProperty.name">
+            </mat-form-field>
+            <button [disabled]="!newProperty.name" type="button" (click)="saveProperty()" class="mat-raised-button mat-primary">Save
+            </button>
+          </div>
+
+          <div>
+            <div fxLayout="column" *ngFor="let deviceTypeProperty of data.deviceType.deviceTypeProperties">
+              <mat-form-field class="example-half-width">
+                <input matInput name="{{ deviceTypeProperty.name}}" [(ngModel)]="deviceTypeProperty.name">
+              </mat-form-field>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="mr-3" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="30px">
+      <div mat-dialog-actions>
+        <button type="button" mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+        <button type="submit" [disabled]="!dialogForm.valid" mat-raised-button color="primary">Save</button>
+      </div>
+    </div>
+  </form>
+
+</div>

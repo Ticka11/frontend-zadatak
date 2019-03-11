@@ -1,0 +1,56 @@
+<div fxlayout="column" fxLayoutGap="10px" mat-dialog-content class="edit-create-dialog">
+
+  <div class="dialog-header" fxLayout="row" fxLayoutAlign="center" class="title">
+    <h1 *ngIf="data.device.id" mat-dialog-title>Edit Device</h1>
+    <h1 *ngIf="!data.device.id" mat-dialog-title>Create New Device</h1>
+  </div>
+  <form #dialogForm="ngForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center">
+      <mat-form-field class="example-half-width">
+        <input required matInput placeholder="Device Name" name="deviceName" [(ngModel)]="data.device.name">
+      </mat-form-field>
+
+      <mat-form-field class="example-half-width">
+        <input required type="number" matInput placeholder="Price" name="devicePrice" [(ngModel)]="data.device.price">
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="data.device.id == null" fxLayout="row" fxLayoutAlign="center">
+      <mat-form-field class="example-full-width">
+        <mat-select name="dataType" placeholder="Choose Device Type" (selectionChange)="onCategoryChanged($event)"
+          panelClass="option-color">
+          <mat-option *ngFor="let category of data.deviceTypes" [value]="category.id">
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="data.device.id == null && subCategories.length!=0" fxLayout="row" fxLayoutAlign="center">
+      <mat-form-field class="example-full-width">
+        <mat-select name="dataType" [(ngModel)]="data.device.deviceTypeId" placeholder="Choose Sub DeviceType"
+          (selectionChange)="onTypeChanged($event)" panelClass="option-color">
+          <mat-option *ngFor="let category of subCategories" [value]="category.id" (click)="getSelectedCategory(category.id)">
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15px" *ngFor="let property of data.device.devicePropertyValues">
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{property.deviceTypeProperty}}</mat-label>
+        <input matInput required name="property ? {{property.value}} : null" [(ngModel)]="property.value" placeholder="Placeholder">
+      </mat-form-field>
+    </div>
+
+    <div class="mr-3" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="30px">
+      <div mat-dialog-actions>
+        <button type="button" mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+        <button type="submit" [disabled]="!dialogForm.valid" mat-raised-button color="primary">Save</button>
+      </div>
+    </div>
+  </form>
+
+</div>

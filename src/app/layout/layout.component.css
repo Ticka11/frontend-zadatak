@@ -1,0 +1,13 @@
+
+ .mat-tab-label-active .mat-tab-label-content {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+  }
+  .mat-tab-body-content{
+    margin-top: 50px;
+  }
+  ::ng-deep .mat-tab-label {
+    font-size: 20px;
+    color: black;
+  }

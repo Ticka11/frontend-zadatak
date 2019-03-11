@@ -1,0 +1,8 @@
+
+<div class="mat-dialog-container view-dialog" fxLayout="column" fxLayoutAlign="center center">
+    <h3 style="text-align: center">{{data.name}}</h3>
+   
+    <div fxLayout="row" fxLayoutGap="15px" *ngFor="let prop of data.devicePropertyValues">
+       <span class="mr-2">{{prop.deviceTypeProperty}}:</span> {{prop.value}}
+    </div>
+</div>

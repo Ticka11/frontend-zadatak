@@ -1,0 +1,91 @@
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-half-width {
+  width: 50%;
+}
+
+.property {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+::ng-deep .mat-tooltip  {
+  font-size: 13px !important;
+}
+
+/* tree style */
+.example-tree-invisible {
+  display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+::ng-deep .example-tree  {
+  background-color: transparent;
+}
+
+::ng-deep .example-tree .mat-tree-node {
+  color: white;
+  font-size: 25px;
+}
+
+/* end of tree style */
+
+.title {
+  border-radius: 0 0 10px 10px;
+  padding: 10px;
+  margin-bottom: 15px;
+  color: black;
+}
+
+/* mat dialog for view */
+::ng-deep .mat-dialog-container{
+  background-color: rgba(44, 121, 160, 0.7);
+}
+
+::ng-deep .mat-dialog-container .view-dialog{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.custom-button {
+  background-color: black;
+  color: white;
+  border: none;
+}
+
+.custom-button :focus {
+  outline: none;
+}
+
+::ng-deep mat-tree-node.device-tree-node li:hover {
+  cursor: pointer;
+  font-size: 27px !important;
+}
+
+::ng-deep .mat-dialog-content {
+  height: 270px;
+}
+
+::ng-deep .view-dialog {
+   background-color: #e8e4f9;
+}
+
+::ng-deep  .edit-create-dialog{
+  background-color: white !important;
+}
