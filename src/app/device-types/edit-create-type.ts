@@ -32,19 +32,19 @@ export class EditCreateTypeDialog {
 
     onSubmit() {
         this.typeService.createOrUpdateDeviceType(this.data.deviceType).subscribe((res) => {
-            if (this.data.deviceType.id === null) {
+            if (this.data.deviceType.id === null && this.data.deviceType.childrenDeviceType != null) {
                 this.data.deviceType.childrenDeviceType.forEach(newCategory => {
                     newCategory.parentId = res.id;
                     this.typeService.createOrUpdateDeviceType(newCategory).subscribe(() => { });
-                    this.alertify.success('Device type has been created successfully!');
                 });
-            } else {
+            } else if (this.data.deviceType.id != null && this.data.deviceType.childrenDeviceType != null) {
                 this.data.deviceType.childrenDeviceType.forEach(newCategory => {
                     newCategory.parentId = this.data.deviceType.id;
                     this.typeService.createOrUpdateDeviceType(newCategory).subscribe(() => { });
-                    this.alertify.success('Device type has been updated successfully!');
                 });
             }
+            this.alertify.success('Device type has been saved successfully!');
+
             this.dialogRef.close();
         }, () => {
             this.alertify.error('Error!');
@@ -60,7 +60,6 @@ export class EditCreateTypeDialog {
     }
 
     saveCategory() {
-
         if (this.data.deviceType.id != null) {
             this.newCategory.parentId = this.data.deviceType.id;
             this.data.deviceType.childrenDeviceType.push(this.newCategory);

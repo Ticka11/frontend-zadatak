@@ -15,8 +15,8 @@
       <div fxLayout="row" fxLayoutAlign="space-around start">
         <div fxLayout="column" fxLayoutGap="10px">
           <div fxLayout="row" fxLayoutGap="20px" *ngIf="data.deviceType.parentId === null">
-            <span>Categories</span>
-            <button class="mat-mini-fab custom-button" type="button" (click)="addNewSubCategory()" matTooltip="SubCategory Name">
+            <span>Child Device Types</span>
+            <button class="mat-mini-fab custom-button" type="button" (click)="addNewSubCategory()" matTooltip="Device Type Name">
               <span class="mat-button-wrapper">
                 <mat-icon class="mat-icon material-icons mat-icon-no-color" role="img" aria-hidden="true">add</mat-icon>
               </span>
@@ -28,7 +28,7 @@
 
           <div *ngIf="showNewCategory" fxLayout="column" fxLayoutGap="10px">
             <mat-form-field class="example-half-width">
-              <input matInput placeholder="Category Name" name="newSubCategory" [(ngModel)]="newCategory.name">
+              <input matInput placeholder="Device Type Name" name="newSubCategory" [(ngModel)]="newCategory.name">
             </mat-form-field>
             <button [disabled]="!newCategory.name" type="button" (click)="saveCategory()" class="mat-raised-button mat-primary">Save
             </button>
